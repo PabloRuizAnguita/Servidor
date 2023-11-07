@@ -72,7 +72,7 @@
         color: white;
     }
     .boton1{
-        margin-top: 120px;
+        margin-top: 50px;
         margin-left: 25px;
     }
     .boton2{
@@ -92,7 +92,7 @@
         margin-left: 30px;
     }
     .ruta{
-        margin-top: 60px;
+        margin-top: 100px;
         color: white;
     }
     .crear2{
