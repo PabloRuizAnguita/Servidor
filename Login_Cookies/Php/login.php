@@ -110,12 +110,16 @@
 
 <?php
 
-    $usuario=$_POST["Usuario"];
-    $contraseña=$_POST["Contraseña"];
+    session_start();
+
+    if(isset($_POST["Usuario"]) && isset($_POST["Contraseña"])){
+        $_SESSION["Usuario"]=$_POST["Usuario"];
+        $_SESSION["Contraseña"]=$_POST["Contraseña"];
+    }
 
     
 
-    if (isset($_POST["Usuario"]) && $_POST["Usuario"]=="Admin" && isset($_POST["Contraseña"]) && $_POST["Contraseña"]=="1234" || isset($_POST["rutaActual"]) || isset($_POST["crear"])  || isset($_POST["BuscArch"])) {
+    if ($_SESSION["Usuario"]=="Admin" && $_SESSION["Contraseña"]=="1234" || $_SESSION["Usuario"]=="Cliente1" && $_SESSION["Contraseña"]=="56789" || isset($_POST["rutaActual"]) || isset($_POST["crear"])  || isset($_POST["BuscArch"])) {
         
         echo "<pre>".date("d/m/y")."</pre>";
         
@@ -139,25 +143,35 @@
                         </form> 
                        
                 </div>
-
                 <div class="col-4"> 
-                    <h3>Crear Archivo</h3>
-                        <form action="login.php" method="post">
-                        <input type="text" class="CA form-control w-50" placeholder="" name="textCrear">
-                            <div class="Crear2">
-                                <?php
-                                if( isset($_POST["crear"])){
-                                    $abrir=fopen($_POST["textCrear"], "a+");
-                                    fwrite($abrir, "Hola Mundo");
-                                    echo "El archivo ha sido creado.";   
-                                    fclose($abrir);
-                                }
-                                ?>
-                            </div>
-                            <input class="boton2 bg-warning" type="submit" value="Crear" name="crear">
-                        </form>
-                </div>
+                    <?php 
 
+                    if($_SESSION["Usuario"]=="Admin" && $_SESSION["Contraseña"]=="1234"){
+
+                    ?>
+                        
+                            <h3>Crear Archivo</h3>
+                                <form action="login.php" method="post">
+                                <input type="text" class="CA form-control w-50" placeholder="" name="textCrear">
+                                    <div class="Crear2">
+                                        <?php
+                                        if( isset($_POST["crear"])){
+                                            $abrir=fopen($_POST["textCrear"], "a+");
+                                            fwrite($abrir, "Hola Mundo");
+                                            echo "El archivo ha sido creado.";   
+                                            fclose($abrir);
+                                        }
+                                        ?>
+                                    </div>
+                                    <input class="boton2 bg-warning" type="submit" value="Crear" name="crear">
+                                </form>
+                        
+                    
+                    <?php
+
+                    }
+                    ?>
+                </div>
                 <div class="col-4"> 
                     <h3>Buscar Archivo</h3>
                     <form action="login.php" method="post">
@@ -179,12 +193,20 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <form action="login1.php" method="post">
+                        <input class="botonSalir bg-danger text-white mt-5 ms-5" type="submit" value="Cerrar Sesion">
+                    </form>
+                </div>
+                <div class="col-4"></div>
+            </div>
         </div>
-
 
 <?php
 
-    }else if ($usuario!="Admin" || $contraseña!="1234"){
+    }else if ($_SESSION["Usuario"]!=="Admin" && $_SESSION["Contraseña"]!=="1234" || $_SESSION["Usuario"]!=="Cliente1" && $_SESSION["Contraseña"]!=="56789"){
 
     ?>
 <div class="container-fluid">
@@ -225,8 +247,11 @@
 
     </div>
 </div>
+
 <?php
-}?>
+}
+?>
+
 
 </body>
 </html>
