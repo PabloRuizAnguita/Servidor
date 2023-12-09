@@ -86,7 +86,7 @@
     // Actividad 6
     echo "<h1>Actividad 6</h1>";
     $palabra = "Hello World";
-    $vocales = array("a", "e", "i", "o", "u");
+    $vocales = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U");
     $borrarVocales = str_replace($vocales, "", $palabra);
     echo $borrarVocales;
     echo "<br>";
